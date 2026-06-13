@@ -61,18 +61,6 @@ Copy-Item `
 -Force
 
 # ==========================================
-# CHECK IF version.dll IS EXIST
-# ==========================================
-
-if (Test-Path "$RepoRoot\Pokermon v3.8.0\GameFiles\version.dll")
-{
-    Copy-Item `
-    "$RepoRoot\Pokermon v3.8.0\GameFiles\version.dll" `
-    "$SteamBalatro\version.dll" `
-    -Force
-}
-
-# ==========================================
 # CHANGE version.dll
 # ==========================================
 
@@ -82,10 +70,13 @@ Remove-Item `
 "$SteamBalatro\version.dll" `
 -ErrorAction SilentlyContinue
 
-Copy-Item `
-"$RepoRoot\Pokermon v3.8.0\GameFiles\version.dll" `
-"$SteamBalatro\version.dll" `
--Force
+if (Test-Path "$RepoRoot\Pokermon v3.8.0\GameFiles\version.dll")
+{
+    Copy-Item `
+    "$RepoRoot\Pokermon v3.8.0\GameFiles\version.dll" `
+    "$SteamBalatro\version.dll" `
+    -Force
+}
 
 # ==========================================
 # CHANGE Mods

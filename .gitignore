@@ -2,3 +2,7 @@
 crash*
 Thumbs.db
 .DS_Store
+
+Scripts/
+*.ps1
+*.bat
