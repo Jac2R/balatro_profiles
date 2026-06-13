@@ -1,0 +1,18 @@
+{
+  "buffer_name": "=[SMODS _ \"src/overrides.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\TheOrder.toml",
+        "pattern": "local poll = pseudorandom(pseudoseed((_key or 'pack_generic')..G.GAME.round_resets.ante))*cume",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2479,
+          "end_line": 2479
+        }
+      ]
+    }
+  ]
+}

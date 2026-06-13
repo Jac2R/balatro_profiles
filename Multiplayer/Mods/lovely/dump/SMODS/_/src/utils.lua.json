@@ -1,0 +1,31 @@
+{
+  "buffer_name": "=[SMODS _ \"src/utils.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\misc.toml",
+        "pattern": "function SMODS.in_scoring(card, scoring_hand)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2043,
+          "end_line": 2043
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\misc.toml",
+        "pattern": "for _, area in ipairs(SMODS.get_card_areas('playing_cards')) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1832,
+          "end_line": 1832
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "buffer_name": "=[SMODS _ \"src/game_object.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\game.toml",
+        "pattern": "for k, v in pairs(G.P_CENTER_POOLS[\"Enhanced\"]) do",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2445,
+          "end_line": 2445
+        },
+        {
+          "start_line": 2482,
+          "end_line": 2482
+        },
+        {
+          "start_line": 2519,
+          "end_line": 2519
+        }
+      ]
+    }
+  ]
+}

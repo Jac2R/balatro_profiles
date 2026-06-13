@@ -1,0 +1,291 @@
+{
+  "buffer_name": "cardarea.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "self:emplace(card, nil, stay_flipped)\nreturn true\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 667,
+          "end_line": 668
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\blind.toml",
+        "pattern": "local stay_flipped = G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(self, card)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 660,
+          "end_line": 661
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\booster.toml",
+        "pattern": "(self.config.type == 'deck' and self ~= G.deck) or",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 317,
+          "end_line": 317
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\booster.toml",
+        "pattern": "if self.config.type == 'hand' and (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK  or G.STATE == G.STATES.PLANET_PACK) then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 475,
+          "end_line": 475
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\booster.toml",
+        "pattern": "if self.config.type == 'hand' and not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK) then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 489,
+          "end_line": 489
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "self.config = config or {}\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 13,
+          "end_line": 30
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "self.config = cardAreaTable.config\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 700,
+          "end_line": 721
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "function CardArea:change_size(delta)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 115,
+          "end_line": 119
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "if self == G.deck and self.config.card_limit > #G.playing_cards then self.config.card_limit = #G.playing_cards end\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 300,
+          "end_line": 303
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "self.config.temp_limit = math.max(#self.cards, self.config.card_limit)\nself.config.card_count = #self.cards\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 304,
+          "end_line": 305
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "{n=G.UIT.T, config={ref_table = self.config, ref_value = 'card_limit', scale = 0.3, colour = G.C.WHITE}},\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 326,
+          "end_line": 326
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "if #self.cards > self.config.card_limit then\n    if self == G.deck then\n        self.config.card_limit = #self.cards\n    end\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 65,
+          "end_line": 69
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\cardarea.toml",
+        "pattern": "{n=G.UIT.R, config={minw = self.T.w,minh = self.T.h,align = \"cm\", padding = 0.1, mid = true, r = 0.1, colour = self ~= G.shop_vouchers and {0,0,0,0.1} or nil, ref_table = self}, nodes={",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 333,
+          "end_line": 333
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\cardarea.toml",
+        "pattern": "local card_count = self ~= G.shop_vouchers and {n=G.UIT.R, config={align = self == G.jokers and 'cl' or self == G.hand and 'cm' or 'cr', padding = 0.03, no_fill = true}, nodes={\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 322,
+          "end_line": 322
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "self:set_ranks()\nif self == G.deck then check_for_unlock({type = 'modify_deck', deck = self}) end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 109,
+          "end_line": 110
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 192,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 213,
+          "end_line": 216
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname='????', level='?', mult = '?', chips = '?'})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 209,
+          "end_line": 211
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\sticker.toml",
+        "pattern": "table.sort(self.cards, function (a, b) return a.T.x + a.T.w/2 - 100*(a.pinned and a.sort_id or 0) < b.T.x + b.T.w/2 - 100*(b.pinned and b.sort_id or 0) end)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 567,
+          "end_line": 567
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\ui_elements.toml",
+        "pattern": "if self.highlighted[1] then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 159,
+          "end_line": 159
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\double_emplace.toml",
+        "pattern": "function CardArea:emplace(card, location, stay_flipped)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 50,
+          "end_line": 52
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\double_emplace.toml",
+        "pattern": " if area:is(CardArea) then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 633,
+          "end_line": 653
+        }
+      ]
+    }
+  ]
+}

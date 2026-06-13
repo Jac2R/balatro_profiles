@@ -1,0 +1,18 @@
+{
+  "buffer_name": "=[SMODS _ \"src/game_object.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\poke_utils.toml",
+        "pattern": "if G.GAME.used_vouchers.v_telescope and i == 1 then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1678,
+          "end_line": 1682
+        }
+      ]
+    }
+  ]
+}

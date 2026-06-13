@@ -1,0 +1,188 @@
+{
+  "buffer_name": "main.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\crash_handler.toml",
+        "patch_type": "copy"
+      },
+      "regions": [
+        {
+          "start_line": 1,
+          "end_line": 888
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\core.toml",
+        "patch_type": "copy"
+      },
+      "regions": [
+        {
+          "start_line": 1289,
+          "end_line": 1335
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\preview.toml",
+        "patch_type": "copy"
+      },
+      "regions": [
+        {
+          "start_line": 1336,
+          "end_line": 1640
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\crash_handler.toml",
+        "pattern": "function love.errhand(msg)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1096,
+          "end_line": 1096
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\preflight.toml",
+        "pattern": "if (love.system.getOS() == 'OS X' ) and (jit.arch == 'arm64' or jit.arch == 'arm') then jit.off() end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 889,
+          "end_line": 889
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "--To control when steam communication happens, make sure to send updates to steam as little as possible",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 983,
+          "end_line": 984
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "--Set up the render window and the stage for the splash screen, then enter the gameloop with :update",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1005,
+          "end_line": 1005
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "if os == 'OS X' or os == 'Windows' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 980,
+          "end_line": 980
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "if os == 'OS X' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 985,
+          "end_line": 985
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "st = require 'luasteam'",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 989,
+          "end_line": 990
+        },
+        {
+          "start_line": 993,
+          "end_line": 994
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\mobile_patches.toml",
+        "pattern": "local os = love.system.getOS()",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 979,
+          "end_line": 979
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "(?<indent>[\t ]*)if not \\(st.init and st:init\\(\\)\\) then\n[\t ]*(?<quit>love.event.quit\\(\\))",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 1003,
+          "end_line": 1003
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\screenshader_rendering.toml",
+        "pattern": "G.CANVAS = love.graphics.newCanvas(w*G.CANV_SCALE, h*G.CANV_SCALE, {type = '2d', readable = true})\nG.CANVAS:setFilter('linear', 'linear')\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1286,
+          "end_line": 1287
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\practice.toml",
+        "pattern": "G.CONTROLLER:queue_L_cursor_press(x, y)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1066,
+          "end_line": 1068
+        }
+      ]
+    }
+  ]
+}

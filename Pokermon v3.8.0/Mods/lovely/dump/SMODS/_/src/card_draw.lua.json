@@ -1,0 +1,44 @@
+{
+  "buffer_name": "=[SMODS _ \"src/card_draw.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\draw_card.toml",
+        "pattern": "order = 40,\n    func = function(self, layer)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 349,
+          "end_line": 349
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\draw_card.toml",
+        "pattern": "if edition.apply_to_float and self.children.floating_sprite then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 448,
+          "end_line": 448
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\poke_utils.toml",
+        "pattern": "if self.debuff then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 461,
+          "end_line": 461
+        }
+      ]
+    }
+  ]
+}

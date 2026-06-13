@@ -1,0 +1,1077 @@
+{
+  "buffer_name": "functions/state_events.lua",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\achievements.toml",
+        "pattern": "if not G.GAME.seeded and not G.GAME.challenge then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "start_line": 74,
+          "end_line": 74
+        },
+        {
+          "start_line": 1130,
+          "end_line": 1130
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++--\n--Joker Effects\n--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++--",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 726,
+          "end_line": 726
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "--calculate the joker edition effects\nlocal edition_effects = eval_card(_card, {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, edition = true})\nif edition_effects.jokers then\n    edition_effects.jokers.edition = true\n    if edition_effects.jokers.chip_mod then\n        hand_chips = mod_chips(hand_chips + edition_effects.jokers.chip_mod)\n        update_hand_text({delay = 0}, {chips = hand_chips})\n        card_eval_status_text(_card, 'jokers', nil, percent, nil, {\n            message = localize{type='variable',key='a_chips',vars={edition_effects.jokers.chip_mod}},\n            chip_mod =  edition_effects.jokers.chip_mod,\n            colour =  G.C.EDITION,\n            edition = true})\n    end\n    if edition_effects.jokers.mult_mod then\n        mult = mod_mult(mult + edition_effects.jokers.mult_mod)\n        update_hand_text({delay = 0}, {mult = mult})\n        card_eval_status_text(_card, 'jokers', nil, percent, nil, {\n            message = localize{type='variable',key='a_mult',vars={edition_effects.jokers.mult_mod}},\n            mult_mod =  edition_effects.jokers.mult_mod,\n            colour = G.C.DARK_EDITION,\n            edition = true})\n    end\n    percent = percent+percent_delta\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 732,
+          "end_line": 736
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "    if edition_effects.jokers then\n        if edition_effects.jokers.x_mult_mod then\n            mult = mod_mult(mult*edition_effects.jokers.x_mult_mod)\n            update_hand_text({delay = 0}, {mult = mult})\n            card_eval_status_text(_card, 'jokers', nil, percent, nil, {\n                message = localize{type='variable',key='a_xmult',vars={edition_effects.jokers.x_mult_mod}},\n                x_mult_mod =  edition_effects.jokers.x_mult_mod,\n                colour =  G.C.EDITION,\n                edition = true})\n        end\n        percent = percent+percent_delta\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 807,
+          "end_line": 812
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, #G.jokers.cards + #G.consumeables.cards do\n    local _card = G.jokers.cards[i] or G.consumeables.cards[i - #G.jokers.cards]",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 731,
+          "end_line": 731
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "            --calculate the joker effects\n            local effects = eval_card(_card, {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, joker_main = true})\n\n            --Any Joker effects\n            if effects.jokers then\n                local extras = {mult = false, hand_chips = false}\n                if effects.jokers.mult_mod then mult = mod_mult(mult + effects.jokers.mult_mod);extras.mult = true end\n                if effects.jokers.chip_mod then hand_chips = mod_chips(hand_chips + effects.jokers.chip_mod);extras.hand_chips = true end\n                if effects.jokers.Xmult_mod then mult = mod_mult(mult*effects.jokers.Xmult_mod);extras.mult = true  end\n                update_hand_text({delay = 0}, {chips = extras.hand_chips and hand_chips, mult = extras.mult and mult})\n                card_eval_status_text(_card, 'jokers', nil, percent, nil, effects.jokers)\n                percent = percent+percent_delta\n            end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 738,
+          "end_line": 754
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "--Joker on Joker effects\nfor _, v in ipairs(G.jokers.cards) do\n    local effect = v:calculate_joker{full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, other_joker = _card}\n    if effect then\n        local extras = {mult = false, hand_chips = false}\n        if effect.mult_mod then mult = mod_mult(mult + effect.mult_mod);extras.mult = true end\n        if effect.chip_mod then hand_chips = mod_chips(hand_chips + effect.chip_mod);extras.hand_chips = true end\n        if effect.Xmult_mod then mult = mod_mult(mult*effect.Xmult_mod);extras.mult = true  end\n        if extras.mult or extras.hand_chips then update_hand_text({delay = 0}, {chips = extras.hand_chips and hand_chips, mult = extras.mult and mult}) end\n        if extras.mult or extras.hand_chips then card_eval_status_text(v, 'jokers', nil, percent, nil, effect) end\n        percent = percent+percent_delta\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 756,
+          "end_line": 805
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for j = 1, #G.jokers.cards do\n    local eval = nil\n    eval = G.jokers.cards[j]:calculate_joker({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted})\n    if eval then\n        if eval.remove then removed = true end\n        card_eval_status_text(G.jokers.cards[j], 'jokers', nil, 1, nil, eval)\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 467,
+          "end_line": 476
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, #G.jokers.cards do\n    --calculate the joker effects\n    local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before = true})\n    if effects.jokers then\n        card_eval_status_text(G.jokers.cards[i], 'jokers', nil, percent, nil, effects.jokers)\n        percent = percent + percent_delta\n        if effects.jokers.level_up then\n            level_up_hand(G.jokers.cards[i], text)\n        end\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 699,
+          "end_line": 712
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "local nu_chip, nu_mult = G.GAME.selected_back:trigger_effect{context = 'final_scoring_step', chips = hand_chips, mult = mult}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 814,
+          "end_line": 842
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for j = 1, #G.jokers.cards do\n    destroyed = G.jokers.cards[j]:calculate_joker({destroying_card = scoring_hand[i], full_hand = G.play.cards})\n    if destroyed then break end\nend\n\nif scoring_hand[i].ability.name == 'Glass Card' and not scoring_hand[i].debuff and pseudorandom('glass') < G.GAME.probabilities.normal/scoring_hand[i].ability.extra then\n    destroyed = true\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 825,
+          "end_line": 849
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "if destroyed_cards[1] then\n    for j=1, #G.jokers.cards do\n        eval_card(G.jokers.cards[j], {cardarea = G.jokers, remove_playing_cards = true, removed = destroyed_cards})\n    end\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 491,
+          "end_line": 496
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, #G.jokers.cards do\n\n    --calculate the joker effects\n    local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, debuffed_hand = true})\n\n    --Any Joker effects\n    if effects.jokers then\n        card_eval_status_text(G.jokers.cards[i], 'jokers', nil, percent, nil, effects.jokers)\n        percent = percent+percent_delta\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 899,
+          "end_line": 902
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, #G.jokers.cards do\n    --calculate the joker after hand played effects\n    local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, after = true})\n    if effects.jokers then\n        card_eval_status_text(G.jokers.cards[i], 'jokers', nil, percent, nil, effects.jokers)\n        percent = percent + percent_delta\n    end\nend",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 958,
+          "end_line": 971
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i = 1, #G.jokers.cards do\n    local ret = G.jokers.cards[i]:calculate_dollar_bonus()\n    if ret then\n        add_round_eval_row({dollars = ret, bonus = true, name='joker'..i, pitch = pitch, card = G.jokers.cards[i]})\n        pitch = pitch + 0.06\n        dollars = dollars + ret\n    end\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1073,
+          "end_line": 1118
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "G.GAME.selected_back:trigger_effect({context = 'eval'})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1060,
+          "end_line": 1060
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i = 1, #G.jokers.cards do\n    local eval = nil\n    eval = G.jokers.cards[i]:calculate_joker({end_of_round = true, game_over = game_over})\n    if eval then\n        if eval.saved then\n            game_over = false\n        end\n        card_eval_status_text(G.jokers.cards[i], 'jokers', nil, nil, nil, eval)\n    end\n    G.jokers.cards[i]:calculate_rental()\n    G.jokers.cards[i]:calculate_perishable()\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 112,
+          "end_line": 118
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i = 1, #G.jokers.cards do\n    G.jokers.cards[i]:calculate_joker({setting_blind = true, blind = G.GAME.round_resets.blind})\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 334,
+          "end_line": 336
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for j = 1, #G.jokers.cards do\n    G.jokers.cards[j]:calculate_joker({pre_discard = true, full_hand = G.hand.highlighted, hook = hook})\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 459,
+          "end_line": 461
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, hand_space do --draw cards from deckL\n    if G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK then\n        draw_card(G.deck,G.hand, i*100/hand_space,'up', true)\n    else\n        draw_card(G.deck,G.hand, i*100/hand_space,'up', true)\n    end\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 390,
+          "end_line": 391
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "for i=1, hand_space do --draw cards from deckL\n    if G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK then\n        draw_card(G.deck,G.hand, i*100/hand_space,'up', true)\n    else\n        draw_card(G.deck,G.hand, i*100/hand_space,'up', true)\n    end\nend\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 419,
+          "end_line": 438
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "draw_card(G.deck,G.hand, i*100/hand_space,'up', true)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 394,
+          "end_line": 404
+        },
+        {
+          "start_line": 406,
+          "end_line": 416
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "G.GAME.current_round.discards_used = 0",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 285,
+          "end_line": 285
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "local percent = 0.3\nlocal percent_delta = 0.08\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 672,
+          "end_line": 673
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "local percent = (i-0.999)/(#G.hand.cards-0.998) + (j-1)*0.1",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 76,
+          "end_line": 79
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "--Add all the pure bonus cards to the scoring hand\nlocal pures = {}\nfor i=1, #G.play.cards do\n    if next(find_joker('Splash')) then\n        scoring_hand[i] = G.play.cards[i]\n    else\n        if G.play.cards[i].ability.effect == 'Stone Card' then\n            local inside = false\n            for j=1, #scoring_hand do\n                if scoring_hand[j] == G.play.cards[i] then\n                    inside = true\n                end\n            end\n            if not inside then table.insert(pures, G.play.cards[i]) end\n        end\n    end\nend\nfor i=1, #pures do\n    table.insert(scoring_hand, pures[i])\nend\ntable.sort(scoring_hand, function (a, b) return a.T.x < b.T.x end )\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 648,
+          "end_line": 665
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 678,
+          "end_line": 683
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "hand_chips = mod_chips(0)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 883,
+          "end_line": 883
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "  func = (function() G.GAME.current_round.current_hand.handname = '';return true end)\n}))\ndelay(0.3)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 956,
+          "end_line": 956
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "delay(0.4); ease_ante(1); delay(0.4); check_for_unlock({type = 'ante_up', ante = G.GAME.round_resets.ante + 1})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 203,
+          "end_line": 203
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\blind.toml",
+        "pattern": "mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 719,
+          "end_line": 719
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\booster.toml",
+        "pattern": "if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 355,
+          "end_line": 355
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "local hand_space = e or*",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 361,
+          "end_line": 380
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "hand_space = math.min(#G.deck.cards, 3)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 386,
+          "end_line": 386
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\card_limit.toml",
+        "pattern": "if G.GAME.blind.name == 'The Serpent' and\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 382,
+          "end_line": 382
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "if scoring_hand[i].ability.effect ~= 'Stone Card' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 436,
+          "end_line": 441
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "G.GAME.cards_played[scoring_hand[i].base.value].suits[scoring_hand[i].base.suit] = true",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 444,
+          "end_line": 450
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "local effects = {G.hand.cards[i]:get_end_of_round_effect()}",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 86,
+          "end_line": 122
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "if G.hand.highlighted[i].ability.name == 'Glass Card' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 480,
+          "end_line": 480
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "if scoring_hand[i].ability.name == 'Glass Card' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 849,
+          "end_line": 849
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\enhancement.toml",
+        "pattern": "if cards_destroyed[i].ability.name == 'Glass Card' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 871,
+          "end_line": 871
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "G.hand.highlighted[i].ability.played_this_ante = true",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 549,
+          "end_line": 549
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "local game_over = true",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 101,
+          "end_line": 101
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\fixes.toml",
+        "pattern": "if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 119,
+          "end_line": 119
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\jimboquip.toml",
+        "pattern": "Jimbo = Card_Character({x = 0, y = 5})\nlocal spot = G.OVERLAY_MENU:get_UIE_by_ID('jimbo_spot')\nspot.config.object:remove()\nspot.config.object = Jimbo\nJimbo.ui_object_updated = true\nJimbo:add_speech_bubble('wq_'..math.random(1,7), nil, {quip = true})\nJimbo:say_stuff(5)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 48,
+          "end_line": 57
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 454,
+          "end_line": 456
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "check_and_set_high_score('hand', hand_chips*mult)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 908,
+          "end_line": 910
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "  func = (function() G.GAME.current_round.current_hand.handname = '';return true end)\n}))\ndelay(0.3)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 945,
+          "end_line": 955
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\shop.toml",
+        "pattern": "G.GAME.current_round.voucher = get_next_voucher_key()\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 233,
+          "end_line": 233
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\shop.toml",
+        "pattern": "local chaos = find_joker('Chaos the Clown')\nG.GAME.current_round.free_rerolls = #chaos\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 297,
+          "end_line": 297
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "(?<indent>[\\t ]*)(?<handtext>if modded then update_hand_text\\(\\{sound = 'chips2', modded = modded\\}, \\{chips = hand_chips, mult = mult\\}\\) end)(.*\\n)*?\\s+(?<delimiter>--\\++--)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 721,
+          "end_line": 727
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "(?<indent>[\\t ]*)local cards_destroyed = \\{\\}\\n(.*\\n)*?\\s+for j=1, #G\\.jokers\\.cards do\\n\\s+eval_card\\(G\\.jokers\\.cards\\[j\\], \\{cardarea = G\\.jokers, remove_playing_cards = true, removed = cards_destroyed\\}\\)\\n\\s+end",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 847,
+          "end_line": 858
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\better_calc.toml",
+        "pattern": "(?<indent>[\\t ]*)for i=1, #G\\.hand\\.cards do\\n\\s+--Check for hand doubling\\n(.*\\n)*?\\s+delay\\(0\\.3\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 183,
+          "end_line": 185
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\blind_ui.toml",
+        "pattern": "(?<indent>[\\t ]*)G\\.HUD_blind:get_UIE_by_ID\\('HUD_blind_debuff_1'\\):juice_up\\(0\\.3, 0\\)\n[\\t ]*G\\.HUD_blind:get_UIE_by_ID\\('HUD_blind_debuff_2'\\):juice_up\\(0\\.3, 0\\)\n[\\t ]*G\\.GAME\\.blind:juice_up\\(\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 560,
+          "end_line": 560
+        },
+        {
+          "start_line": 887,
+          "end_line": 887
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\blind_ui.toml",
+        "pattern": "hand_chips = mod_chips\\(0\\)(\\n.*)*?\\n[\\t ]*(?<juice>SMODS.juice_up_blind\\(\\))",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 887,
+          "end_line": 887
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\scoring_calculation.toml",
+        "pattern": "^(.*)hand_chips\\s*\\*\\s*mult(.*)$",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 906,
+          "end_line": 906
+        },
+        {
+          "start_line": 911,
+          "end_line": 911
+        },
+        {
+          "start_line": 913,
+          "end_line": 913
+        },
+        {
+          "start_line": 915,
+          "end_line": 915
+        },
+        {
+          "start_line": 927,
+          "end_line": 927
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\compact_cashout.toml",
+        "pattern": "add_round_eval_row({name = 'bottom', dollars = dollars})",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1184,
+          "end_line": 1203
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\override_notice.toml",
+        "pattern": "G.FUNCS.get_poker_hand_info = function(_cards)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 606,
+          "end_line": 606
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\poker_hand.toml",
+        "pattern": "G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 643,
+          "end_line": 643
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\poker_hand.toml",
+        "pattern": "G.GAME.voucher_restock = nil",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 192,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\compact_cashout.toml",
+        "pattern": "G\\.FUNCS\\.evaluate_round = function\\(\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 1031,
+          "end_line": 1032
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "smods\\lovely\\mod.toml",
+        "pattern": "(?<indent>[\\t ]*)reset_castle_card\\(\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 256,
+          "end_line": 261
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\TheOrder.toml",
+        "pattern": "G.deck:shuffle('nr'..G.GAME.round_resets.ante)",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 343,
+          "end_line": 343
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "-- context.end_of_round calculations",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 109,
+          "end_line": 111
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "if game_over then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 123,
+          "end_line": 126
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.FUNCS.draw_from_discard_to_deck()",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 206,
+          "end_line": 206
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.STATE = G.STATES.ROUND_EVAL\nG.STATE_COMPLETE = false\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 224,
+          "end_line": 224
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.GAME.round_resets.blind_states.Small = 'Defeated'\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 228,
+          "end_line": 228
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.GAME.round_resets.blind_states.Big = 'Defeated'\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 231,
+          "end_line": 231
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.GAME.round_resets.blind_states.Boss = 'Defeated'\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 235,
+          "end_line": 235
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "if G.GAME.round_resets.temp_handsize then G.hand:change_size(-G.GAME.round_resets.temp_handsize); G.GAME.round_resets.temp_handsize = nil end\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 241,
+          "end_line": 246
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.STATE = G.STATES.ROUND_EVAL\nG.STATE_COMPLETE = false\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 213,
+          "end_line": 223
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "if G.GAME.round_resets.temp_handsize then G.hand:change_size(-G.GAME.round_resets.temp_handsize); G.GAME.round_resets.temp_handsize = nil end\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 247,
+          "end_line": 249
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.GAME.round_bonus.discards = 0\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 302,
+          "end_line": 312
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "G.GAME.blind:set_blind(G.GAME.round_resets.blind)\n",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 329,
+          "end_line": 331
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\game.toml",
+        "pattern": "dollars = dollars + G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), G.GAME.interest_cap/5)\n    end",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1140,
+          "end_line": 1165
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\game.toml",
+        "pattern": "if G.GAME.current_round.hands_left > 0 and not G.GAME.modifiers.no_extra_hand_money then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1063,
+          "end_line": 1063
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\game.toml",
+        "pattern": "if G.GAME.chips - G.GAME.blind.chips >= 0 then\nadd_round_eval_row({dollars = G.GAME.blind.dollars, name='blind1', pitch = pitch})",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1036,
+          "end_line": 1037
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\stakes.toml",
+        "pattern": "pitch = pitch + 0.06\n\nif total_cashout_rows > 7 then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 1167,
+          "end_line": 1181
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "multiplayer-0.4.2\\lovely\\end_round.toml",
+        "pattern": "function end_round\\(\\)(?<pre>[\\s\\S]+?)func = function\\(\\)",
+        "patch_type": "regex"
+      },
+      "regions": [
+        {
+          "start_line": 94,
+          "end_line": 99
+        }
+      ]
+    }
+  ]
+}

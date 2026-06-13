@@ -1,0 +1,4 @@
+*.log
+crash*
+Thumbs.db
+.DS_Store

@@ -1,0 +1,31 @@
+{
+  "buffer_name": "=[SMODS _ \"src/utils.lua\"]",
+  "entries": [
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\gameplay_functions.toml",
+        "pattern": "-- TARGET: add your own CardAreas for playing card evaluation",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2275,
+          "end_line": 2277
+        }
+      ]
+    },
+    {
+      "patch_source": {
+        "file": "Pokermon\\lovely\\UI.toml",
+        "pattern": "elseif part.control.X or part.control.B then",
+        "patch_type": "pattern"
+      },
+      "regions": [
+        {
+          "start_line": 2725,
+          "end_line": 2741
+        }
+      ]
+    }
+  ]
+}
