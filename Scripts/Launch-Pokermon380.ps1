@@ -110,4 +110,4 @@ Copy-Item `
 
 Write-Host "Launching game..."
 
-# Start-Process "steam://rungameid/2379780"
+Start-Process "steam://rungameid/2379780"
