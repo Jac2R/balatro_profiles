@@ -6,3 +6,5 @@ Thumbs.db
 Scripts/**
 *.ps1
 *.bat
+
+logos/**
